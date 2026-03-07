@@ -28,5 +28,5 @@ app.delete('/del', (req, res) => {
 res.send('<html><body>INSIDE DELETE API..</body></html>');
 });
 // START THE EXPRESS SERVER. 5000 is the PORT NUMBER
-app.listen(80, () =>
-console.log('EXPRESS Server Started at Port No: 80'));
+app.listen(5000, () =>
+console.log('EXPRESS Server Started at Port No: 5000'));
