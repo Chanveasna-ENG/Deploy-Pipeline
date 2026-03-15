@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res)=> {
-    res.send("<h1>Assignment 3</h1>")
+    res.send("<h1>Assignment 3: It is working!!!</h1>")
 })
 app.post('/', (req, res)=> {
     res.send("Received!")
