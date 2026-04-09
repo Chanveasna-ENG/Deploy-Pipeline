@@ -93,40 +93,25 @@ resource "aws_launch_template" "app_lt" {
   user_data = base64encode(<<-EOF
             #!/bin/bash
               
-              # 1. Update and install prerequisites (added git here as well)
+              # 1. Update and install standard packages
               apt-get update -y
-              apt-get install -y ca-certificates curl git
-
-              # 2. Add Docker's official GPG key
-              install -m 0755 -d /etc/apt/keyrings
-              curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-              chmod a+r /etc/apt/keyrings/docker.asc
-
-              # 3. Add the repository to Apt sources (using EOF_DOCKER to avoid terraform conflicts)
-              cat <<EOF_DOCKER > /etc/apt/sources.list.d/docker.sources
-              Types: deb
-              URIs: https://download.docker.com/linux/ubuntu
-              Suites: $(. /etc/os-release && echo "$VERSION_CODENAME")
-              Components: stable
-              Architectures: $(dpkg --print-architecture)
-              Signed-By: /etc/apt/keyrings/docker.asc
-              EOF_DOCKER
-
-              # 4. Install Docker
-              apt-get update -y
-              apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+              apt-get install -y docker.io git
               
-              # 5. Add user to docker group
+              # 2. Ensure Docker is running
+              systemctl start docker
+              systemctl enable docker
+              
+              # 3. Add user to docker group
               usermod -aG docker ubuntu
               
-              # 6. Clone the repository
+              # 4. Clone the repository
               git clone https://github.com/Chanveasna-ENG/Deploy-Pipeline.git /home/ubuntu/app
               cd /home/ubuntu/app
               
-              # 7. Build and run the docker image
+              # 5. Build and run the docker image
               docker build -t evilsna/deploy-pipeline:v1.0 .
               docker run --name deploy-app -d -p 5000:5000 evilsna/deploy-pipeline:v1.0
-            EOF
+              EOF
   )
 }
 
