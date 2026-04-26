@@ -13,8 +13,8 @@ provider "aws" {
 }
 
 # Pointing to the public key in the root directory of your repo
-resource "aws_key_pair" "labsuser" {
-  key_name   = "labsuser"
+resource "aws_key_pair" "labsuser1" {
+  key_name   = "labsuser1"
   public_key = file("${path.module}/labsuser.pub") 
 }
 
