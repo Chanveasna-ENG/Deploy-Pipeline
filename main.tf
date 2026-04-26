@@ -90,7 +90,7 @@ resource "aws_launch_template" "app_lt" {
   name_prefix   = "app-launch-template-"
   image_id      = "ami-0ec10929233384c7f" # Ubuntu 24.04 LTS
   instance_type = "t3.micro"
-  key_name      = aws_key_pair.labsuser.key_name
+  key_name      = aws_key_pair.labsuser1.key_name
   
   network_interfaces {
     security_groups             = [aws_security_group.MySG.id]
