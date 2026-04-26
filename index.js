@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 app.get('/', (req, res)=> {
-    res.send("<h1>Terraform & Jenkins</h1>")
+    res.send("<h1>This is the final project assignment for DevOps.</h1>")
 })
 app.post('/', (req, res)=> {
     res.send("Received!")
